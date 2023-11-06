@@ -19,7 +19,6 @@ public final class NoncomparisonSorting {
    * @param arr array to be sorted
    */
   public static void directAccessArraySort(int[] arr) {
-
     int arrLength = arr.length;
     int max = findMax(arr); // O(n)
 
@@ -38,6 +37,31 @@ public final class NoncomparisonSorting {
       }
     }
 
+  }
+
+  public static void countingSort(int[] arr) {
+    int n = arr.length;
+    int max = findMax(arr); // O(n)
+
+    int[] countingArr = new int[max + 1]; // initialized with zero values. This takes O(n) in RAM
+                                          // model.
+    for (int i = 0; i < n; i++) { // O(n)
+      countingArr[arr[i]] += 1;
+    }
+
+    for (int i = 1; i < max + 1; i++) { // O(max + 1)
+      countingArr[i] += countingArr[i - 1];
+    }
+
+    int[] temp = new int[n];
+    for (int i = 0; i < n; i++) { // O(n)
+      temp[countingArr[arr[i]] - 1] = arr[i];
+      countingArr[arr[i]]--;
+    }
+
+    for (int i = 0; i < n; i++) { // O(n)
+      arr[i] = temp[i];
+    }
   }
 
   private static int findMax(int[] arr) {
