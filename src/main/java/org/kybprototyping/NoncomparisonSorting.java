@@ -39,30 +39,51 @@ public final class NoncomparisonSorting {
 
   }
 
-  public static void countingSort(int[] arr) {
+  /**
+   * Sorts the given arr under the assumptions below:
+   * </p>
+   * <ul>
+   * <li>All the key values are non-negative</li>
+   * </ul>
+   * 
+   * @param arr array to be sorted
+   */
+  public static void countingSort(Tuple[] arr) {
     int n = arr.length;
     int max = findMax(arr); // O(n)
 
-    int[] countingArr = new int[max + 1]; // initialized with zero values. This takes O(n) in RAM
-                                          // model.
+    // initialized with zero values.
+    int[] countingArr = new int[max + 1]; // O(max + 1) in RAM model
     for (int i = 0; i < n; i++) { // O(n)
-      countingArr[arr[i]] += 1;
+      countingArr[arr[i].key()] += 1;
     }
 
     for (int i = 1; i < max + 1; i++) { // O(max + 1)
       countingArr[i] += countingArr[i - 1];
     }
 
-    int[] temp = new int[n];
-    for (int i = 0; i < n; i++) { // O(n)
-      temp[countingArr[arr[i]] - 1] = arr[i];
-      countingArr[arr[i]]--;
+    Tuple[] temp = new Tuple[n];
+    // iterating from the end at this point makes the algorithm stable.
+    for (int i = n - 1; i >= 0; i--) { // O(n)
+      temp[countingArr[arr[i].key()] - 1] = arr[i];
+      countingArr[arr[i].key()]--;
     }
 
     for (int i = 0; i < n; i++) { // O(n)
       arr[i] = temp[i];
     }
   }
+
+  /**
+   * Sorts the given arr under the assumptions below:
+   * </p>
+   * <ul>
+   * <li>All the key values are non-negative</li>
+   * </ul>
+   * 
+   * @param arr array to be sorted
+   */
+  public static void radixSort(Tuple[] arr) {}
 
   private static int findMax(int[] arr) {
     int max = arr[0];
@@ -74,6 +95,21 @@ public final class NoncomparisonSorting {
     }
 
     return max;
+  }
+
+  private static int findMax(Tuple[] arr) {
+    int max = arr[0].key();
+
+    for (int i = 0; i < arr.length; i++) {
+      if (max < arr[i].key()) {
+        max = arr[i].key();
+      }
+    }
+
+    return max;
+  }
+
+  static record Tuple(int key, Object value) {
   }
 
 }

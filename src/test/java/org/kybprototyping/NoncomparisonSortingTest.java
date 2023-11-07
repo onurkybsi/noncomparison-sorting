@@ -1,7 +1,9 @@
 package org.kybprototyping;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+import org.kybprototyping.NoncomparisonSorting.Tuple;
 
 class NoncomparisonSortingTest {
 
@@ -20,13 +22,22 @@ class NoncomparisonSortingTest {
   @Test
   void countingSort_Should_Sort_Given_Arr() {
     // given
-    int[] arr = new int[] {9, 2, 2, 9, 3, 4, 2, 5};
+    Tuple[] arr = new Tuple[] {new Tuple(9, "value91"), new Tuple(2, "value21"),
+        new Tuple(2, "value22"), new Tuple(9, "value92"), new Tuple(3, "value3"),
+        new Tuple(4, "value4"), new Tuple(2, "value23"), new Tuple(5, "value5")};
 
     // when
     NoncomparisonSorting.countingSort(arr);
 
     // then
-    assertArrayEquals(new int[] {2, 2, 2, 3, 4, 5, 9, 9}, arr);
+    assertEquals(new Tuple(2, "value21"), arr[0]);
+    assertEquals(new Tuple(2, "value22"), arr[1]);
+    assertEquals(new Tuple(2, "value23"), arr[2]);
+    assertEquals(new Tuple(3, "value3"), arr[3]);
+    assertEquals(new Tuple(4, "value4"), arr[4]);
+    assertEquals(new Tuple(5, "value5"), arr[5]);
+    assertEquals(new Tuple(9, "value91"), arr[6]);
+    assertEquals(new Tuple(9, "value92"), arr[7]);
   }
 
 }
