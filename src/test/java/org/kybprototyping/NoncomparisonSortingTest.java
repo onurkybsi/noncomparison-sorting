@@ -40,4 +40,25 @@ class NoncomparisonSortingTest {
     assertEquals(new Tuple(9, "value92"), arr[7]);
   }
 
+  @Test
+  void radixSort_Should_Sort_Given_Arr() {
+    // given
+    Tuple[] arr = new Tuple[] {new Tuple(99, "value99"), new Tuple(212, "value212-1"),
+        new Tuple(2, "value2"), new Tuple(9999, "value9999"), new Tuple(31, "value31"),
+        new Tuple(4, "value4"), new Tuple(212, "value212-2"), new Tuple(5, "value5")};
+
+    // when
+    NoncomparisonSorting.radixSort(arr);
+
+    // then
+    assertEquals(new Tuple(2, "value2"), arr[0]);
+    assertEquals(new Tuple(4, "value4"), arr[1]);
+    assertEquals(new Tuple(5, "value5"), arr[2]);
+    assertEquals(new Tuple(31, "value31"), arr[3]);
+    assertEquals(new Tuple(99, "value99"), arr[4]);
+    assertEquals(new Tuple(212, "value212-1"), arr[5]);
+    assertEquals(new Tuple(212, "value212-2"), arr[6]);
+    assertEquals(new Tuple(9999, "value9999"), arr[7]);
+  }
+
 }

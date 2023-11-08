@@ -40,7 +40,7 @@ public final class NoncomparisonSorting {
   }
 
   /**
-   * Sorts the given arr under the assumptions below:
+   * Sorts the given {@code arr} under the assumptions below:
    * </p>
    * <ul>
    * <li>All the key values are non-negative</li>
@@ -75,7 +75,7 @@ public final class NoncomparisonSorting {
   }
 
   /**
-   * Sorts the given arr under the assumptions below:
+   * Sorts the given {@code arr} under the assumptions below:
    * </p>
    * <ul>
    * <li>All the key values are non-negative</li>
@@ -83,7 +83,37 @@ public final class NoncomparisonSorting {
    * 
    * @param arr array to be sorted
    */
-  public static void radixSort(Tuple[] arr) {}
+  public static void radixSort(Tuple[] arr) {
+    int maxDigit = findMaxDigit(arr);
+
+    for (int i = 1; i <= maxDigit; i++) {
+      countingSortByDigit(arr, i);
+    }
+  }
+
+  private static void countingSortByDigit(Tuple[] arr, int digitFromLeft) {
+    int n = arr.length;
+    int divider = (int) Math.pow(10, digitFromLeft);
+
+    int[] countingArr = new int[10];
+    for (int i = 0; i < n; i++) {
+      countingArr[(arr[i].key() / divider) % 10] += 1;
+    }
+
+    for (int i = 1; i < 10; i++) {
+      countingArr[i] += countingArr[i - 1];
+    }
+
+    Tuple[] temp = new Tuple[n];
+    for (int i = n - 1; i >= 0; i--) {
+      temp[countingArr[(arr[i].key() / divider) % 10] - 1] = arr[i];
+      countingArr[(arr[i].key() / divider) % 10]--;
+    }
+
+    for (int i = 0; i < n; i++) {
+      arr[i] = temp[i];
+    }
+  }
 
   private static int findMax(int[] arr) {
     int max = arr[0];
@@ -107,6 +137,13 @@ public final class NoncomparisonSorting {
     }
 
     return max;
+  }
+
+  private static int findMaxDigit(Tuple[] arr) {
+    int digits = 0;
+    for (int max = findMax(arr); max > 0; max /= 10)
+      digits++;
+    return digits;
   }
 
   static record Tuple(int key, Object value) {
