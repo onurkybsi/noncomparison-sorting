@@ -8,7 +8,7 @@ import org.kybprototyping.NoncomparisonSorting.Tuple;
 class NoncomparisonSortingTest {
 
   @Test
-  void directAccessArraySort_Should_Sort_Given_Arr() {
+  void directAccessArraySort_Should_Sort_Given_Integer_Arr() {
     // given
     int[] arr = new int[] {14, 65, 31, 9, 1, 5, 3, 12, 6};
 
@@ -20,7 +20,7 @@ class NoncomparisonSortingTest {
   }
 
   @Test
-  void countingSort_Should_Sort_Given_Arr() {
+  void countingSort_Should_Sort_Given_Tuple_Arr_By_Keys() {
     // given
     Tuple[] arr = new Tuple[] {new Tuple(9, "value91"), new Tuple(2, "value21"),
         new Tuple(2, "value22"), new Tuple(9, "value92"), new Tuple(3, "value3"),
@@ -41,7 +41,7 @@ class NoncomparisonSortingTest {
   }
 
   @Test
-  void radixSort_Should_Sort_Given_Arr() {
+  void radixSort_Should_Sort_Given_Tuple_Arr_By_Keys() {
     // given
     Tuple[] arr = new Tuple[] {new Tuple(99, "value99"), new Tuple(212, "value212-1"),
         new Tuple(2, "value2"), new Tuple(9999, "value9999"), new Tuple(31, "value31"),

@@ -5,7 +5,9 @@ package org.kybprototyping;
  */
 public final class NoncomparisonSorting {
 
-  private NoncomparisonSorting() {}
+  private NoncomparisonSorting() {
+    throw new UnsupportedOperationException("This class is not initiable!");
+  }
 
   /**
    * <p>
@@ -19,12 +21,12 @@ public final class NoncomparisonSorting {
    * @param arr array to be sorted
    */
   public static void directAccessArraySort(int[] arr) {
-    int arrLength = arr.length;
+    int n = arr.length;
     int max = findMax(arr); // O(n)
 
     // O(n)
     int[] temp = new int[max + 1];
-    for (int i = 0; i < arrLength; i++) {
+    for (int i = 0; i < n; i++) {
       temp[arr[i]] = arr[i];
     }
 
@@ -63,7 +65,7 @@ public final class NoncomparisonSorting {
     }
 
     Tuple[] temp = new Tuple[n];
-    // iterating from the end at this point makes the algorithm stable.
+    // iterating from the end at this point makes the algorithm 'stable'.
     for (int i = n - 1; i >= 0; i--) { // O(n)
       temp[countingArr[arr[i].key()] - 1] = arr[i];
       countingArr[arr[i].key()]--;
@@ -118,11 +120,9 @@ public final class NoncomparisonSorting {
   private static int findMax(int[] arr) {
     int max = arr[0];
 
-    for (int i = 0; i < arr.length; i++) {
-      if (max < arr[i]) {
+    for (int i = 0; i < arr.length; i++)
+      if (max < arr[i])
         max = arr[i];
-      }
-    }
 
     return max;
   }
@@ -130,20 +130,20 @@ public final class NoncomparisonSorting {
   private static int findMax(Tuple[] arr) {
     int max = arr[0].key();
 
-    for (int i = 0; i < arr.length; i++) {
-      if (max < arr[i].key()) {
+    for (int i = 0; i < arr.length; i++)
+      if (max < arr[i].key())
         max = arr[i].key();
-      }
-    }
 
     return max;
   }
 
   private static int findMaxDigit(Tuple[] arr) {
-    int digits = 0;
+    int maxDigit = 0;
+
     for (int max = findMax(arr); max > 0; max /= 10)
-      digits++;
-    return digits;
+      maxDigit++;
+
+    return maxDigit;
   }
 
   static record Tuple(int key, Object value) {
