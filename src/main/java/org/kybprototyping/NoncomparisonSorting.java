@@ -24,15 +24,14 @@ public final class NoncomparisonSorting {
     int n = arr.length;
     int max = findMax(arr); // O(n)
 
-    // O(n)
-    int[] temp = new int[max + 1];
-    for (int i = 0; i < n; i++) {
+    // initialized with zero values.
+    int[] temp = new int[max + 1]; // O(max + 1) in RAM model
+    for (int i = 0; i < n; i++) { // O(n)
       temp[arr[i]] = arr[i];
     }
 
-    // O(max + 1)
     int i = 0;
-    for (int j = 0; j < max + 1; j++) {
+    for (int j = 0; j < max + 1; j++) { // O(max + 1)
       if (temp[j] != 0) {
         arr[i] = temp[j];
         i++;
